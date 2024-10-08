@@ -20,6 +20,7 @@ public class CustomUserDetailsService implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         UserEntity user = this.authRepository.findByUsername(username);
+        System.out.println("dans customUserDetails "+user);
         if(user == null){
            throw new UsernameNotFoundException("username " + username + " not found");
         }
