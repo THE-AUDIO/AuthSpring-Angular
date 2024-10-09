@@ -17,4 +17,7 @@ public class AuthService {
         user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
         return authRepository.save(user);
     }
+    public Iterable<UserEntity> findAll(){
+        return this.authRepository.findAll();
+    }
 }

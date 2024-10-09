@@ -20,15 +20,14 @@ public class CustomUserDetailsService implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         UserEntity user = this.authRepository.findByUsername(username);
-        System.out.println("dans customUserDetails "+user);
         if(user == null){
            throw new UsernameNotFoundException("username " + username + " not found");
         }
-        return new User(user.getUsername(), user.getPassword(),getGrantedAuthority(user.getRole()));
+        return new User(user.getUsername(), user.getPassword(),getGrantedAuthority(user.getRoles()));
     }
-    private List<GrantedAuthority> getGrantedAuthority(String role){
+    private List<GrantedAuthority> getGrantedAuthority(String roles){
         List<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();
-        authorities.add(new SimpleGrantedAuthority("ROLE_"+role));
+        authorities.add(new SimpleGrantedAuthority("ROLE_" + roles));
         return authorities;
     }
 }
